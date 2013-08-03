@@ -51,6 +51,24 @@
             	$('#overlay').hide();
             });
 
+            /* Delete Wish */
+            $('.delete-wish').click(function() {
+            	var wishContainer = $(this).parents('.wish-container');
+            	var productName = $(wishContainer).find('.product-name').html();
+            	var answer = confirm("Are you sure you want to delete \"" + productName + "\" from your wishlist?");
+            	if (answer) {
+            		var url = "/index.php/wishlistEditor/deleteFromWishlist";
+            		var wishId = $(wishContainer).attr('id').replace('wish-','');
+            		$.post(url, { 'wish-id': wishId }, function (data) {
+            			if (data) {
+            				$(wishContainer).fadeOut(1000, function() {
+            					$(this).remove();
+            				});
+            			} 
+            		});
+            	}
+            });
+
             /* Wish Buttons - Hover */
             $('.wish-buttons').hide();
 
@@ -108,9 +126,9 @@
 				<?php
 					foreach ($this->wishes as $wish) {
 				?>
-					<div class="wish-container">
+					<div id="wish-<?php echo $wish->wish_id ?>"class="wish-container">
 						<div class="wish-buttons">
-							<div class="blue button small pull-right">Edit</div>
+							<div class="edit-wish blue button small pull-right">Edit</div>
 							<div class="delete-wish red button small pull-right">Delete</div>
 						</div>
 						<img class="wish-image" src="<?php echo $wish->image_path ?>"/>

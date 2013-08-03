@@ -35,9 +35,9 @@ class Wishlist_model extends CI_Model {
 	    return $wishes;
     }
 
-    function get_wish_info($wishid) {
+    function get_wish_info($wishId) {
     	$sql = "SELECT * FROM wish WHERE wish_id = ?";
-    	$query = $this->db->query($sql, array($wishid));
+    	$query = $this->db->query($sql, array($wishId));
     	$result = $query->result();
 
     	if (is_array($result) && count($result) == 1) {
@@ -55,5 +55,24 @@ class Wishlist_model extends CI_Model {
             'wishlist_id'   =>  $wishlistId
         );
         $this->db->insert('wishlist_wish', $wishlistWishInfo);
+    }
+
+    function deleteWish($wishId) {
+        if ($this->db->delete('wishlist_wish', array('wish_id' => $wishId))) {
+        
+            // Delete the wish's image    
+            $sql = "SELECT image_path FROM wish WHERE wish_id = ?";
+            $query = $this->db->query($sql, array($wishId));
+            $result = $query->result();
+            if (is_array($result) && count($result) == 1) {
+                $record = $result[0];
+                unlink($_SERVER['DOCUMENT_ROOT'] . $record->image_path);;
+            }
+            
+            if ($this->db->delete('wish', array('wish_id' => $wishId))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
