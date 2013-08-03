@@ -69,9 +69,6 @@ class Settings extends CI_Controller {
 	    $this->userInfo = $this->user_model->getUserInfo($this->session->userdata('userid'));
 
 	    $this->load->helper('form');
-
-		$this->message = $message;
-		$this->load->view('templates/header_view');
 		$this->load->view('settings/updateinfo_form');
 	}
 

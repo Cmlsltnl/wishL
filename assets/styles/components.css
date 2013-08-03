@@ -84,6 +84,7 @@
 	overflow: hidden;
 	border-radius: 2px;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .blue {
@@ -114,7 +115,6 @@
 }
 
 .small {
-	width: 32px;
 	font-size: 10px;
 }
 

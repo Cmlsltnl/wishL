@@ -8,6 +8,11 @@ class WishlistEditor extends CI_Controller {
 		$this->load->model('wishlist_model');
 	}
 
+	public function showAddToWishlist() {
+	    $this->load->helper('form');
+		$this->load->view('wishlisteditor/addtowishlist_form');
+	}
+
 	public function addToWishlist() {
 		$config['upload_path'] = './assets/images/products/';
 		$config['allowed_types'] = 'gif|jpg|jpeg|png';
