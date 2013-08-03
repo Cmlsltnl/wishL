@@ -1,0 +1,109 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	font-family: Helvetica Neue, sans-serif;
+	font-size: 14px;
+	background: #686868 url('/assets/images/wood-background.jpg');
+}
+
+a {
+	text-decoration: none;
+	color: #232220;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* Navbar */
+#navbar {
+	position: fixed;
+	height: 30px;
+	width: 100%;
+	padding: 4px;
+	border-bottom: 1px solid #000000;
+	background-color: #232220;
+	z-index: 999;
+}
+
+#navbar-center {
+	width: 1000px;
+	margin: auto;
+	color: #E7DECE;
+}
+#navbar-center a {
+	text-decoration: none;
+	color: #E7DECE;
+}
+
+#navbar-logo {
+	float: left;
+	display: inline;
+	font-size: 20px;
+	padding: 0px;
+}
+
+#navbar-links {
+	position: relative;
+	float: right;
+	width: auto;
+	display: inline;
+	overflow: visible;
+}
+
+#navbar-break {
+	position: absolute;
+	height: 30px;
+	width: 2px;
+	display: inline-block;
+	background-color: #E7DECE;
+}
+
+#navbar-dropdown {
+	position: relative;
+	margin-left: 6px;
+	padding: 6px;
+	display: inline-block;
+}
+#navbar-dropdown ul {
+	list-style: none;
+	position: absolute;
+	width: 100%;
+	left: -9999px;
+	margin-top: 10px;
+	border: 1px solid #232220;
+	border-radius: 2px;
+	background-color: #383734;
+	z-index: 1000;
+}
+#navbar-dropdown ul li {
+	float: none;
+}
+#navbar-dropdown ul a {
+	display: block;
+	padding: 6px;
+	white-space: nowrap;
+}
+#navbar-dropdown:hover {
+	background-color: #383734;
+}
+
+#navbar-dropdown-wrapper {
+	position: relative;
+	display: inline-block;
+}
+#navbar-dropdown-wrapper:hover {
+	height: 34px;
+	overflow: visible;
+}
+#navbar-dropdown-wrapper:hover ul {
+	left: 0;
+}

@@ -1,0 +1,127 @@
+#wrapper {
+	width: 1000px;
+	margin: 0 auto;
+	padding-top: 58px;
+}
+
+#wrapper-small {
+	width: 500px;
+	margin: 0 auto;
+	padding-top: 58px;
+}
+
+/* Modals */
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	z-index: 1000;
+}
+
+/* Text alignment */
+.text-center {
+	text-align: center;
+}
+
+/* Status Messages */
+.success-msg {
+	color: #6CA383;
+}
+
+.error-msg {
+	color: #C92A2A;
+}
+
+/* Forms */
+.form {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px;
+	overflow: hidden;
+	border: 1px solid #C7BFB1;
+	border-radius: 2px;
+	background-color: #E7DECE;
+}
+
+.form h1 {
+	margin-bottom: 2px;
+}
+
+*:focus {
+	outline: #81A1A3 solid 1px;
+}
+
+.text-input {
+	width: 95%;
+	padding: 6px;
+	margin: 0 auto 10px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #C9C9C9;
+    border-radius: 2px;
+    color: #383734;
+    background: #FFFFFF;
+}
+
+.text-label {
+	padding: 4px 0;
+	font-weight: bold;
+}
+
+/* Buttons */
+.button {
+	margin-right: 6px;
+	padding: 6px;
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+	border-radius: 2px;
+	font-weight: bold;
+}
+
+.blue {
+	color: #E7DECE;
+	border: 1px solid #6A8385;
+	background-color: #81A1A3;
+}
+.blue:hover {
+	background-color: #789596;
+}
+
+.green {
+	color: #E7DECE;
+	border: 1px solid #527A63;
+	background-color: #6CA383;
+}
+.green:hover {
+	background-color: #65967A;
+}
+
+.red {
+	color: #E7DECE;
+	border: 1px solid #C92A2A;
+	background-color: #DE4E4E;
+}
+.red:hover {
+	background-color: #CC4747;
+}
+
+.small {
+	width: 32px;
+	font-size: 10px;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
