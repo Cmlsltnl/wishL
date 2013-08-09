@@ -1,7 +1,7 @@
 $(document).ready(function(){      
 	$('#overlay').hide();
 
-	/* Form Modals */
+	/* Modals */
 	$('#updateinfo-button').click(function() {
 		$('#modal').load("/index.php/settings/showUpdateInfo");
 		$(document).ajaxComplete(function(){
@@ -20,12 +20,26 @@ $(document).ready(function(){
     	return false;
     });
 
+    $('.wish-image').click(function() {
+        var wishContainer = $(this).parents('.wish-container');
+
+        var url = "/index.php/profile/viewWish/";
+        var wishId = $(wishContainer).attr('id').replace('wish-','');
+        $('#modal').load(url + wishId);
+        $('#modal').css('padding', 0).css('border', 'none');
+        $(document).ajaxComplete(function(){
+            $('#modal').dialog('open');
+            $('#overlay').show();
+        });
+        return false;
+    });
+
 	$('#modal').dialog({
         autoOpen: false,
         resizeable: false,
         modal: false,
         position: 'center',
-        width: 500
+        width: 800
     });
 
     /* Delete Wish */
@@ -76,5 +90,11 @@ $(document).ajaxComplete(function(){
     	$('#modal').dialog('close');
     	$('#modal').html('');
     	$('#overlay').hide();
+    });
+
+    $('#overlay').click(function() {
+        $('#modal').dialog('close');
+        $('#modal').html('');
+        $('#overlay').hide();
     });        
 });

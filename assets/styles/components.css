@@ -37,6 +37,16 @@
 	color: #C92A2A;
 }
 
+#modal {
+	position: relative;
+	margin: 0 auto;
+	padding: 20px;
+	overflow: hidden;
+	border: 1px solid #C7BFB1;
+	border-radius: 2px;
+	background-color: #E7DECE;
+}
+
 /* Forms */
 .form {
 	position: relative;
@@ -94,6 +104,15 @@
 }
 .blue:hover {
 	background-color: #789596;
+}
+
+.black {
+	color: #E7DECE;
+	border: 1px solid #000000;
+	background-color: #383734;
+}
+.black:hover {
+	background-color: #232220;
 }
 
 .green {

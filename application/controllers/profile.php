@@ -30,4 +30,9 @@ class Profile extends CI_Controller {
 		$this->load->view('templates/header_view');
 		$this->load->view('profile/wishlist_view');
 	}
+
+	public function viewWish($wishId) {
+		$this->wish = $this->wishlist_model->get_wish_info($wishId);
+		$this->load->view('profile/wish_view');
+	}
 }

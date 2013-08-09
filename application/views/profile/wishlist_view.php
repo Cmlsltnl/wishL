@@ -7,7 +7,7 @@
 
 	<body>
 		<div id="wrapper">
-			<div id="modal" class="form" style="z-index: 1001;"></div>
+			<div id="modal" style="z-index: 1001;"></div>
 			<div id="overlay"></div>
 			<div id="user-info">
 				<?php if ($this->userNotFound) { ?>
@@ -48,11 +48,12 @@
 								&#183; 12 Wishes 
 								&#183; 41 Likes
 							</div>
-
+<!--
 							<div class="button-wrapper">
 								<a href=""><button class="button blue small">Rewish</button></a>
 								<a href=""><button class="button green small">Buy</button></a>
 							</div>
+-->
 						</div>
 					</div>
 				<?php
