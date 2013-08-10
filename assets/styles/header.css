@@ -10,8 +10,8 @@ html {
 body {
 	height: 100%;
 	font-family: Helvetica Neue, sans-serif;
-	font-size: 14px;
-	background: #686868 url('/assets/images/wood-background.jpg');
+	font-size: 12px;
+	background: #CFCFCF;
 }
 
 a {

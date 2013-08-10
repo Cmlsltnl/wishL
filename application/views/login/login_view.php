@@ -7,7 +7,10 @@
 	<body>
 		<div id="wrapper-small">
 			<div id="login-form" class="form text-center">
-				<h1>&#9733; wishL</h1>
+				<div class="form-header">
+					<h1>&#9733; wishL</h1>
+				</div>
+				<div class="form-contents">
 				<?php
 					if ($this->showError) {
 						echo "<p><div class=\"error-msg\">Invalid email/password combination. Please try again.</div></p>";
@@ -61,6 +64,7 @@
 					echo form_submit($loginButton);
 					echo form_close();				
 				?>
+				</div>
 			</div> <!-- end of login-form-->
 		</div> <!-- end of wrapper -->
 	</body>

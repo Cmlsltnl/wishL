@@ -20,6 +20,21 @@ class Wishlist_model extends CI_Model {
 	    return false;
     }
 
+    function getWishlists($userid) {
+        $sql = "SELECT name FROM wishlist WHERE owner_id = ?";
+        $query = $this->db->query($sql, array($userid));
+        $results = $query->result();
+
+        $wishlists = array();
+        if (is_array($results) && count($results) > 0) {
+            foreach($results as $row) {
+                array_push($wishlists, $row->name);
+            }
+        }
+
+        return $wishlists;
+    }
+
     function get_wishes($wishlistid) {
     	$sql = "SELECT wish_id FROM wishlist_wish WHERE wishlist_id = ?";
     	$query = $this->db->query($sql, array($wishlistid));
