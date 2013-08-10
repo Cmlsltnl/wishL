@@ -81,7 +81,7 @@ class Wishlist_model extends CI_Model {
             $result = $query->result();
             if (is_array($result) && count($result) == 1) {
                 $record = $result[0];
-                unlink($_SERVER['DOCUMENT_ROOT'] . $record->image_path);;
+                unlink($_SERVER['DOCUMENT_ROOT'] . $record->image_path);
             }
             
             if ($this->db->delete('wish', array('wish_id' => $wishId))) {

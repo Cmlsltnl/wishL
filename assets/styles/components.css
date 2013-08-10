@@ -29,6 +29,10 @@
 	z-index: 1000;
 }
 
+.close-modal {
+	cursor: pointer;
+}
+
 .ui-dialog-titlebar-close {
   display: none;
 }
@@ -158,10 +162,6 @@
 }
 .red:hover {
 	background-color: #CC4747;
-}
-
-.cancel-button {
-	cursor: pointer;
 }
 
 .small {

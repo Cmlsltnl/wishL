@@ -8,7 +8,7 @@
 	<body>
 		<div id="cover-wrapper">
 			<div id="modal" class="form" style="z-index: 1001;"></div>
-			<div id="overlay"></div>
+			<div id="overlay" class="close-modal"></div>
 			<div id="user-info">
 				<?php if ($this->userNotFound) { ?>
 					<div class="error-msg">User not found.</div>
@@ -80,6 +80,7 @@
 		</div> <!-- end of wrapper -->
 
 		<!-- JAVASCRIPT -->
+		<script src="http://malsup.github.com/jquery.form.js"></script> 
 		<script src="/assets/js/masonry.pkgd.min.js"></script>
 		<script src="/assets/js/imagesloaded.pkgd.min.js"></script>
 		<script src="/assets/js/wishlist.js"></script>

@@ -1,7 +1,7 @@
 <div class="form-header">
 <h1>
 	Update Info
-	<div class="cancel-button pull-right" style="font-weight:normal; font-size: 12px;">[close]</div>
+	<div class="close-modal pull-right" style="font-weight:normal; font-size: 12px;">[close]</div>
 </h1>
 </div>
 <div class="message">
@@ -78,7 +78,7 @@
 
 		$cancelUpdateButton = array(
 			'name' => 'cancel',
-			'class' => 'cancel-button button grey pull-right',
+			'class' => 'close-modal button grey pull-right',
 			'content' => 'Cancel',
 		);
 
