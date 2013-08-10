@@ -1,5 +1,9 @@
-<h1>Update Info</h1>
-<hr></br>
+<div class="form-header">
+<h1>
+	Update Info
+	<div class="close-modal pull-right" style="font-weight:normal; font-size: 12px;">[close]</div>
+</h1>
+</div>
 <div class="message">
 	<?php
 		$this->message = '';
@@ -10,6 +14,7 @@
 		}
 	?>
 </div>
+<div class="form-contents">
 	<?php
 		/* Update Info Form */
 		echo form_open_multipart('settings/updateInfo');
@@ -73,8 +78,7 @@
 
 		$cancelUpdateButton = array(
 			'name' => 'cancel',
-			'id' => 'cancel-button',
-			'class' => 'button red pull-right',
+			'class' => 'close-modal button grey pull-right',
 			'content' => 'Cancel',
 		);
 
@@ -84,7 +88,8 @@
 		    'value' => 'Update Info',
 		);
 
-		echo form_button($cancelUpdateButton);
 		echo form_submit($updateButton);
+		echo form_button($cancelUpdateButton);
 		echo form_close();
 	?>
+</div>

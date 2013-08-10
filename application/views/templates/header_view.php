@@ -16,7 +16,7 @@
 				</div>
 				<div id="navbar-links">
 					<?php if ($this->session->userdata('isLoggedIn')) { ?>
-						<a href="<?php echo site_url('wishlisteditor/show_wishlist_adder'); ?>"><button id="addtowishlist-button" class="button blue" style="width: 72px;">+</button></a>
+						<button id="addtowishlist-button" class="button blue" style="width: 72px;">+</button>
 						<div id="navbar-break"></div>
 						<div id="navbar-dropdown-wrapper">
 							<div id="navbar-dropdown">

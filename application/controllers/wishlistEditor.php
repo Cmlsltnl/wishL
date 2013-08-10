@@ -1,4 +1,5 @@
 <?php
+require_once APPPATH . "/libraries/simple_html_dom.php";
 
 class WishlistEditor extends CI_Controller {
 
@@ -13,7 +14,36 @@ class WishlistEditor extends CI_Controller {
 		$this->load->view('wishlisteditor/addtowishlist_form');
 	}
 
-	public function addToWishlist() {
+	public function addByUrl() {
+		$productUrl = $_POST['product-url'];
+
+		$html = file_get_html($productUrl);
+		
+		$widthReq = 300;
+		$validImages = array();
+		foreach($html->find('img') as $image) {
+			// If img src is valid URL, check its dimensions - we only want images with big enough width
+			if(filter_var($image->src, FILTER_VALIDATE_URL)) {
+				$imageDimensions = getimagesize($image->src);
+				if($imageDimensions[0] >= $widthReq) {
+					array_push($validImages, $image->src);
+				}
+			}
+		}
+
+		$productInfo = array();
+
+		$title = $html->find('title');
+		$productInfo['productName'] = $title[0]->plaintext;
+
+		if(count($validImages) > 0) {
+			$productInfo['image'] = $validImages[0];
+		}
+
+		echo json_encode($productInfo);
+	}
+
+	public function addByUpload() {
 		$config['upload_path'] = './assets/images/products/';
 		$config['allowed_types'] = 'gif|jpg|jpeg|png';
 		
@@ -24,8 +54,23 @@ class WishlistEditor extends CI_Controller {
 			echo $this->upload->display_errors();
 		}
 		$imageData = $this->upload->data();
-		$imagePath = '/assets/images/products/' . $imageData['file_name'];
 
+		$productInfo['image'] = '/assets/images/products/' . $imageData['file_name'];
+		$productInfo['filename'] = $imageData['file_name'];
+
+		echo json_encode($productInfo);
+	}
+
+	public function deleteUpload($filename) {
+		unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/images/products/' . $filename);
+	}
+
+	public function showEditWishInfo() {
+		$this->load->helper('form');
+		$this->load->view('wishlisteditor/editwishinfo_form.php');
+	}
+
+	public function addToWishlist() {
 		$wishInfo = array(
 			'name'					=> 	$_POST['product-name'],
 			'brand'					=> 	$_POST['product-brand'],
@@ -34,7 +79,7 @@ class WishlistEditor extends CI_Controller {
 			'wisher_id'				=>	$this->session->userdata('userid'),
 			'date'					=>	date('Y-m-d'),
 			'original_wisher_id'	=> 	$this->session->userdata('userid'),
-			'image_path'			=> 	$imagePath
+			'image_path'			=> 	$_POST['product-image'],
 		);
 
 		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));

@@ -3,28 +3,20 @@ $(document).ready(function(){
 
 	/* Form Modals */
 	$('#updateinfo-button').click(function() {
-		$('#modal').load("/index.php/settings/showUpdateInfo");
-		$(document).ajaxComplete(function(){
-            $('#modal').dialog('open');
-            $('#overlay').show();
-		});
-		return false;
+		$('#modal').load("/index.php/settings/showUpdateInfo").dialog('open');
+        $('#overlay').show();
 	});
 
     $('#addtowishlist-button').click(function() {
-    	$('#modal').load("/index.php/wishlistEditor/showAddToWishlist");
-    	$(document).ajaxComplete(function(){
-            $('#modal').dialog('open');
-            $('#overlay').show();
-		});
-    	return false;
+    	$('#modal').load("/index.php/wishlistEditor/showAddToWishlist").dialog('open');
+        $('#overlay').show();
     });
 
 	$('#modal').dialog({
         autoOpen: false,
         resizeable: false,
         modal: false,
-        position: 'center',
+        position: ['center', 100],
         width: 500
     });
 
@@ -71,10 +63,64 @@ $(document).ready(function(){
     });
 });
 
-$(document).ajaxComplete(function(){
-    $('#cancel-button').click(function() {
-    	$('#modal').dialog('close');
-    	$('#modal').html('');
-    	$('#overlay').hide();
-    });        
+$(document).ajaxComplete(function(event, xhr, settings) {
+    if (settings.url == "/index.php/wishlistEditor/showAddToWishlist") {
+        $("#add-dropdown").change(function() {
+            var addOption = $("#add-dropdown").val();
+            if(addOption == 'addbyurl') {
+                $('#addbyurl-form').css("display","block");
+                $('#addbyupload-form').css("display", "none");
+            } else {
+                $('#addbyurl-form').css("display", "none");
+                $('#addbyupload-form').css("display", "block");
+            }
+        });
+
+        $('#addbyurl-form').ajaxForm(function(data) {
+            $('#modal').dialog('close');
+            $('#modal').html('');
+            $('#modal').load("/index.php/wishlistEditor/showEditWishInfo").dialog('open');
+            $(document).ajaxComplete(function() {
+                var productInfo = jQuery.parseJSON(data);
+                $('#top-image').attr('src', productInfo.image);
+                $('input[name="product-image"]').val(productInfo.image);
+                $('input[name="product-name"]').val(productInfo.productName);
+            });
+        });
+
+        $('#addbyupload-form').ajaxForm(function(data) {
+            $('#modal').dialog('close');
+            $('#modal').html('');
+            $('#modal').load("/index.php/wishlistEditor/showEditWishInfo").dialog('open');
+            $(document).ajaxComplete(function() {
+                var productInfo = jQuery.parseJSON(data);
+                $('#top-image').attr('src', productInfo.image);
+                $('input[name="product-image"]').val(productInfo.image);
+                
+                $('.close-modal').click(function() {
+                    $('#modal').load("/index.php/wishlistEditor/deleteUpload/" + productInfo.filename).dialog('close');
+                    $('#modal').html('');
+                    $('#overlay').hide();
+                });
+            });
+        });
+
+        $('.close-modal').click(function() {
+            $('#modal').dialog('close');
+            $('#modal').html('');
+            $('#overlay').hide();
+        });
+    }
+
+    else if (settings.url == "/index.php/wishlistEditor/deleteFromWishlist") {
+
+    }
+
+    else {
+        $('.close-modal').click(function() {
+            $('#modal').dialog('close');
+            $('#modal').html('');
+            $('#overlay').hide();
+        });
+    }
 });

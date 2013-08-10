@@ -19,6 +19,8 @@ class Profile extends CI_Controller {
 			$this->userInfo->fullname = $this->userInfo->firstname . " " . $this->userInfo->lastname;
 		}
 
+		$this->wishlists = $this->wishlist_model->getWishlists($userid);
+
 		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($userid);
 		$wishIds = $this->wishlist_model->get_wishes($primaryWishlistId);
 
