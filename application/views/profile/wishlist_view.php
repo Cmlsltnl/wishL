@@ -5,34 +5,39 @@
 		<link rel="stylesheet" type="text/css" href="/assets/styles/wishlist.css">
 	</head>
 
-	<body>
+	<body style="background: #F0EBE1;">
 		<div id="cover-wrapper">
-			<div id="modal" class="form" style="z-index: 1001;"></div>
-			<div id="overlay" class="close-modal"></div>
-			<div id="user-info">
-				<?php if ($this->userNotFound) { ?>
-					<div class="error-msg">User not found.</div>
-				<?php } else { ?>
-					<img id="user-img" src="<?php if ($this->userInfo->image_path) { echo $this->userInfo->image_path; }
-													else { echo "/assets/images/users/profile-default.png"; } ?>"/>
-					<div id="user-name">
-						<?php echo $this->userInfo->fullname; ?>
-					</div>
-					<div id="user-loc"><?php echo $this->userInfo->location; ?></div>
-
-					<span style="position: absolute; right: 20px; bottom: 20px;">
-					<?php if($this->userInfo->user_id != $this->session->userdata('userid')) { ?>
-						<button class="button grey">Send Message</button>
-						<button class="button blue">Follow</button>
+			<div class="wrapper">
+				<div id="modal" style="z-index: 1001;"></div>
+				<div id="overlay"></div>
+				<div id="user-info" class="pull-left">
+					<?php if ($this->userNotFound) { ?>
+						<div class="error-msg">User not found.</div>
 					<?php } else { ?>
-						<button id="updateinfo-button" class="button blue">Update Info</button>
+						<img id="user-img" src="<?php if ($this->userInfo->image_path) { echo $this->userInfo->image_path; }
+														else { echo "/assets/images/users/profile-default.png"; } ?>"/>
+						<div id="user-name">
+							<?php echo $this->userInfo->fullname; ?>
+						</div>
+						<div id="user-loc"><?php echo $this->userInfo->location; ?></div>
+
+						<span style="position: absolute; right: 20px; bottom: 20px;">
+						<?php if($this->userInfo->user_id != $this->session->userdata('userid')) { ?>
+							<button class="button grey">Send Message</button>
+							<button class="button blue">Follow</button>
+						<?php } else { ?>
+							<button id="updateinfo-button" class="button blue">Update Info</button>
+						<?php } ?>
+						</span>
 					<?php } ?>
-					</span>
-				<?php } ?>
-			</div> <!-- end of profile-info -->
+				</div> <!-- end of profile-info -->
+				<div id="user-stats" class="pull-right">
+					<div id="user-name">&#9733; <?php echo $this->wishlists[0]; ?></div>
+				</div>
+			</div>
 		</div>
 
-		<div id="list-bar-wrapper">
+		<!--<div id="list-bar-wrapper">
 			<div id="list-bar" class="pull-left" style="margin-right: 10px">
 				<select>
 					<?php foreach ($this->wishlists as $wishlist) { ?>
@@ -41,9 +46,9 @@
 				</select>
 			</div>
 			<button class="button blue pull-left">Follow this list</button>
-		</div>
+		</div>-->
 
-		<div id="wrapper">
+		<div class="wrapper">
 			<div id="wishlist-wrapper" class = "js-masonry" data-masonry-options='{ "columnWidth": 310, "itemSelector": ".wish-container" }'>
 				<?php
 					foreach ($this->wishes as $wish) {
@@ -71,6 +76,7 @@
 								<h1>
 									<div class="social-button pull-left" style="margin-right: 4px;">[rewish]</div>
 									<div class="social-button pull-left">[like]</div>
+									<div class="social-button pull-right">view &#187;</div>
 								</h1>
 							</div>
 						</div>

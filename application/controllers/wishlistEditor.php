@@ -24,8 +24,8 @@ class WishlistEditor extends CI_Controller {
 		foreach($html->find('img') as $image) {
 			// If img src is valid URL, check its dimensions - we only want images with big enough width
 			if(filter_var($image->src, FILTER_VALIDATE_URL)) {
-				$imageDimensions = getimagesize($image->src);
-				if($imageDimensions[0] >= $widthReq) {
+				$imageDimensions = @getimagesize($image->src);
+				if($imageDimensions && $imageDimensions[0] >= $widthReq) {
 					array_push($validImages, $image->src);
 				}
 			}
