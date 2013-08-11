@@ -55,11 +55,11 @@
 
 /* Wishlist */
 #wishlist-wrapper {
-	margin-top: 40px;
+	margin: 40px auto 0;
 }
 
 .js-masonry {
-	max-width: 1000px;
+	max-width: 1200px;
 
 }
 
@@ -67,18 +67,18 @@
 	position: relative;
 	display: inline-block;
 	float: left;
-	width: 324px;
+	width: 291px;
 	margin-bottom: 13px;
 }
 
 .wish-image {
-	width: 324px;
+	width: 291px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
 }
 
 .wish-info {
-	max-width: 324px;
+	max-width: 291px;
 	margin-top: -3px;
 	padding: 10px;
 	border: 1px solid #C7BFB1;
@@ -102,37 +102,41 @@
 	color: #686868;
 }
 
-.button-wrapper {
+/* Social buttons */
+.social-button-wrapper {
 	max-width: 100%;
-	margin-top: 2px;
-	padding: 4px 0;
+	margin: 4px 0 0;
+	padding: 2px 0 0;
 	border-top: 1px solid #C7BFB1;
+	overflow: hidden;
+}
+
+.social-button {
+	color: #686868;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.social-button:hover {
+	color: #81A1A3;
 }
 
 /* Wish Buttons */
-.wish-buttons {
+.edit-button-wrapper {
 	position: absolute;
 	top: 10px;
-	right: 10px;
 	padding: 4px;
 	border-radius: 2px;
 	background-color: #232220;
 	opacity: 0.7;
 	filter: alpha(opacity=70);
 }
-.wish-buttons:hover {
+.edit-button-wrapper:hover {
 	opacity: 1;
 	filter: alpha(opacity=100);
 }
 
-.edit-wish {
-	color: #E7DECE;
-	font-size: 12px;
-	font-weight: normal;
-	margin-right: 4px;
-	cursor: pointer;
-}
-.delete-wish {
+.edit-button {
 	color: #E7DECE;
 	font-size: 12px;
 	font-weight: normal;

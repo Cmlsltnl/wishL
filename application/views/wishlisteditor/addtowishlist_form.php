@@ -42,8 +42,10 @@
 	$addButton = array(
 	    'name' => 'add',
 	    'class' => 'button blue pull-right',
-	    'value' => 'Add To Wishlist',
+	    'value' => 'Add URL',
 	);
+
+	echo '<img src="/assets/images/loading.gif" id="loading-image" class="pull-right" style="display: none;">';
 
 	echo form_submit($addButton);
 	echo form_button($cancelAddButton);
@@ -69,13 +71,15 @@
 		'content' => 'Cancel',
 	);
 
-	$addButton = array(
-	    'name' => 'add',
+	$uploadButton = array(
+	    'name' => 'upload',
 	    'class' => 'button blue pull-right',
-	    'value' => 'Add To Wishlist',
+	    'value' => 'Upload',
 	);
 
-	echo form_submit($addButton);
+	echo '<img src="/assets/images/loading.gif" id="loading-image" class="pull-right" style="display: none;">';
+
+	echo form_submit($uploadButton);
 	echo form_button($cancelAddButton);
 	echo form_close();						
 ?>

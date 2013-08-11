@@ -39,15 +39,15 @@ $(document).ready(function(){
     });
 
     /* Wish Buttons - Hover */
-    $('.wish-buttons').hide();
+    $('.edit-button-wrapper').hide();
 
     $('.wish-container').mouseover(function() {
-    	$(this).children('.wish-buttons').show();
+    	$(this).children('.edit-button-wrapper').show();
     	$(this).children('.wish-info').css('background-color', '#F7EEDC');
     });
 
     $('.wish-container').mouseleave(function() {
-    	$(this).children('.wish-buttons').hide();
+    	$(this).children('.edit-button-wrapper').hide();
     	$(this).children('.wish-info').css('background-color', '#E7DECE');
     });
 
@@ -55,8 +55,8 @@ $(document).ready(function(){
     $('.js-masonry').imagesLoaded( function() {
 		$('.js-masonry').masonry({
 			containerStyle: null,
-		  	columnWidth: 324,
-		  	gutter: 14,
+		  	columnWidth: 291,
+		  	gutter: 12,
 		  	itemSelector: '.wish-container',
 		  	transitionDuration: 0,
 		});

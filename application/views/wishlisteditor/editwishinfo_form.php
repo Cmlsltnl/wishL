@@ -1,6 +1,6 @@
 <div class="form-header">
 <h1>
-	Add to Wishlist - Edit Info!
+	Edit Wish Info
 	<div class="close-modal pull-right" style="font-weight:normal; font-size: 12px;">[close]</div>
 </h1>
 </div>
