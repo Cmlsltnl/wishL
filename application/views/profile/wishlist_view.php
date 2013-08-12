@@ -53,10 +53,10 @@
 				<?php
 					foreach ($this->wishes as $wish) {
 				?>
-					<div id="wish-<?php echo $wish->wish_id ?>"class="wish-container">
+					<div id="wish-<?php echo $wish->wish_id ?>" class="wish-container">
 						<?php if($this->userInfo->user_id == $this->session->userdata('userid')) { ?>
 						<div class="edit-button-wrapper" style="right: 10px;">
-							<h1><div class="edit-button pull-right">[edit]</div></h1>
+							<h1><div class="edit-button edit-wish pull-right">[edit]</div></h1>
 						</div>
 						<div class="edit-button-wrapper" style="left: 10px;">
 							<h1><div class="edit-button pull-left">[mark as owned]</div></h1>
@@ -67,7 +67,10 @@
 							<a href=""><div class="product-name"><?php echo $wish->name ?></div></a>
 							<div class="product-brand"><?php echo $wish->brand ?></div>
 
-							<div class="product-stats"><span style="color: #232220; font-weight: bold;">$<?php echo $wish->price?></span>
+							<div class="product-stats">
+								<span style="color: #232220; font-weight: bold;">
+									$<div class="product-price"><?php echo $wish->price?></div>
+								</span>
 								&#183; 12 wishes 
 								&#183; 41 likes
 							</div>

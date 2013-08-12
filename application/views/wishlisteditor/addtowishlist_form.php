@@ -7,31 +7,39 @@
 	</div>
 
 	<div class="form-contents">
+		<img src="" id="top-image" style="width: 468px; margin-bottom: 10px;" />
 		<?php
-			/* Dropdown for add options */
-			$options = array(
-				'addbyurl' 		=>	'Add by URL',
-				'addbyupload' 	=>	'Add by upload',
+			$formAttributes = array('id' => 'addtowishlist-form');
+			$hiddenFields = array('product-image' => '');
+			echo form_open('wishlistEditor/addToWishlist', $formAttributes, $hiddenFields);
+
+			$productNameInput = array(
+				'name'        => 'product-name',
+				'class'       => 'text-input',
+				'maxlength'   => '250',
 			);
 
-			$addDropdown = 'id="add-dropdown" class="dropdown-input"';
-			echo form_dropdown('adddropdown', $options, 'addbyurl', $addDropdown);
-			echo "</br>";
+			echo form_label('Product Name', 'product-name', array('class' => 'form-label'));
+			echo form_input($productNameInput) . "</br>";
 
-
-			/* Add by URL form */
-			$urlFormAttributes = array('id' => 'addbyurl-form');
-			echo form_open('wishlistEditor/addByUrl', $urlFormAttributes);
-			
-			$productUrlInput = array(
-			    'name'        => 'product-url',
-			    'class'       => 'text-input',
-			    'placeholder' => 'http://',
-			    'maxlength'   => '250',
+			$productBrandInput = array(
+				'name'        => 'product-brand',
+				'class'       => 'text-input',
+				'maxlength'   => '250',
 			);
 
-			echo form_label('Product URL', 'product-url', array('class' => 'form-label'));
-			echo form_input($productUrlInput) . "</br>";
+			echo form_label('Product Brand', 'product-brand', array('class' => 'form-label'));
+			echo form_input($productBrandInput) . "</br>";
+
+			$productPriceInput = array(
+				'name'        => 'product-price',
+				'class'       => 'text-input',
+				'maxlength'   => '10',
+				'style'				=> 'width: 93%'
+			);
+
+			echo form_label('Product Price', 'product-price', array('class' => 'form-label'));
+			echo "<div><span style=\"display:inline-block;\">$</span> " . form_input($productPriceInput) . "</div></br></br>";
 
 			$cancelAddButton = array(
 				'name' => 'cancel',
@@ -40,47 +48,14 @@
 			);
 
 			$addButton = array(
-			    'name' => 'add',
-			    'class' => 'button blue pull-right',
-			    'value' => 'Add URL',
+				'name' => 'add',
+				'class' => 'button blue pull-right',
+				'value' => 'Add To Wishlist',
 			);
-
-			echo '<img src="/assets/images/loading.gif" id="loading-image" class="pull-right" style="display: none;">';
 
 			echo form_submit($addButton);
 			echo form_button($cancelAddButton);
-			echo form_close();	
-
-
-			/* Add by Upload Form */
-			$uploadFormAttributes = array('id' => 'addbyupload-form', 'style' => 'display: none;');
-			echo form_open_multipart('wishlistEditor/addByUpload', $uploadFormAttributes);
-
-			$productImageInput = array(
-			    'name'        => 'product-image',
-			    'class'       => 'text-input',
-			);
-
-			echo form_label('Product image', 'product-image', array('class' => 'form-label'));
-			echo form_upload($productImageInput) . "</br>";
-
-			$cancelAddButton = array(
-				'name' => 'cancel',
-				'class' => 'close-modal button grey pull-right',
-				'content' => 'Cancel',
-			);
-
-			$uploadButton = array(
-			    'name' => 'upload',
-			    'class' => 'button blue pull-right',
-			    'value' => 'Upload',
-			);
-
-			echo '<img src="/assets/images/loading.gif" id="loading-image" class="pull-right" style="display: none;">';
-
-			echo form_submit($uploadButton);
-			echo form_button($cancelAddButton);
-			echo form_close();						
+			echo form_close();					
 		?>
 	</div>
 </div>
