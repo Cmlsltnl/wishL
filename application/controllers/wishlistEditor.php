@@ -9,9 +9,9 @@ class WishlistEditor extends CI_Controller {
 		$this->load->model('wishlist_model');
 	}
 
-	public function showAddToWishlist() {
-	    $this->load->helper('form');
-		$this->load->view('wishlisteditor/addtowishlist_form');
+	public function showAddOptions() {
+		$this->load->helper('form');
+		$this->load->view('wishlisteditor/addoptions_form');
 	}
 
 	public function addByUrl() {
@@ -25,7 +25,7 @@ class WishlistEditor extends CI_Controller {
 			// If img src is valid URL, check its dimensions - we only want images with big enough width
 			if(filter_var($image->src, FILTER_VALIDATE_URL)) {
 				$imageDimensions = @getimagesize($image->src);
-				if($imageDimensions && $imageDimensions[0] >= $widthReq) {
+				if($imageDimensions && $imageDimensions[0] >= $widthReq && $imageDimensions[1] >= $widthReq) {
 					array_push($validImages, $image->src);
 				}
 			}
@@ -50,15 +50,40 @@ class WishlistEditor extends CI_Controller {
 		$this->load->library('upload', $config);
 		
 		$image = $this->upload->do_upload('product-image');
+		
 		if (!$image) {
 			echo $this->upload->display_errors();
 		}
+		
 		$imageData = $this->upload->data();
 
 		$productInfo['image'] = '/assets/images/products/' . $imageData['file_name'];
 		$productInfo['filename'] = $imageData['file_name'];
 
 		echo json_encode($productInfo);
+	}
+
+	public function showAddToWishlist() {
+		$this->load->helper('form');
+		$this->load->view('wishlisteditor/addtowishlist_form.php');
+	}
+
+	public function addToWishlist() {
+		$wishInfo = array(
+			'name'								=> 	$_POST['product-name'],
+			'brand'								=> 	$_POST['product-brand'],
+			'price' 							=> 	$_POST['product-price'],
+			'description'					=> 	$_POST['product-description'],
+			'wisher_id'						=>	$this->session->userdata('userid'),
+			'date'								=>	date('Y-m-d'),
+			'original_wisher_id'	=> 	$this->session->userdata('userid'),
+			'image_path'					=> 	$_POST['product-image'],
+		);
+
+		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
+		$this->wishlist_model->addWish($wishInfo, $primaryWishlistId);
+
+		redirect('/profile/view/' . $this->session->userdata('userid'));
 	}
 
 	public function deleteUpload($filename) {
@@ -68,24 +93,24 @@ class WishlistEditor extends CI_Controller {
 	public function showEditWishInfo() {
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/editwishinfo_form.php');
+
+		echo "Hi";
 	}
 
-	public function addToWishlist() {
+	public function editWishInfo() {
+		$wishId = $_POST['wish-id'];
+
 		$wishInfo = array(
-			'name'					=> 	$_POST['product-name'],
-			'brand'					=> 	$_POST['product-brand'],
-			'price' 				=> 	$_POST['product-price'],
-			'description'			=> 	$_POST['product-description'],
-			'wisher_id'				=>	$this->session->userdata('userid'),
-			'date'					=>	date('Y-m-d'),
-			'original_wisher_id'	=> 	$this->session->userdata('userid'),
-			'image_path'			=> 	$_POST['product-image'],
+			'name'		=> 	$_POST['product-name'],
+			'brand'		=> 	$_POST['product-brand'],
+			'price' 	=> 	$_POST['product-price'],
 		);
 
-		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
-		$this->wishlist_model->addWish($wishInfo, $primaryWishlistId);
+		$this->wishlist_model->updateWish($wishId, $wishInfo);
 
-		redirect('/profile/view/' . $this->session->userdata('userid'));
+		$wishInfo['wishName'] = $_POST['product-name'];
+		$wishInfo['wishId'] = $wishId;
+		echo json_encode($wishInfo);
 	}
 
 	public function deleteFromWishlist() {
