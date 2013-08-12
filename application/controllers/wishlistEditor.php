@@ -25,7 +25,7 @@ class WishlistEditor extends CI_Controller {
 			// If img src is valid URL, check its dimensions - we only want images with big enough width
 			if(filter_var($image->src, FILTER_VALIDATE_URL)) {
 				$imageDimensions = @getimagesize($image->src);
-				if($imageDimensions && $imageDimensions[0] >= $widthReq) {
+				if($imageDimensions && $imageDimensions[0] >= $widthReq && $imageDimensions[1] >= $widthReq) {
 					array_push($validImages, $image->src);
 				}
 			}
@@ -93,6 +93,8 @@ class WishlistEditor extends CI_Controller {
 	public function showEditWishInfo() {
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/editwishinfo_form.php');
+
+		echo "Hi";
 	}
 
 	public function editWishInfo() {
