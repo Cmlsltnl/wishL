@@ -33,6 +33,8 @@ class WishlistEditor extends CI_Controller {
 
 		$productInfo = array();
 
+		$productInfo['productUrl'] = $productUrl;
+
 		$title = $html->find('title');
 		$productInfo['productName'] = $title[0]->plaintext;
 
@@ -70,14 +72,15 @@ class WishlistEditor extends CI_Controller {
 
 	public function addToWishlist() {
 		$wishInfo = array(
-			'name'								=> 	$_POST['product-name'],
-			'brand'								=> 	$_POST['product-brand'],
-			'price' 							=> 	$_POST['product-price'],
-			'description'					=> 	$_POST['product-description'],
+			'url'									=>	$_POST['product-url'],
+			'name'								=>	$_POST['product-name'],
+			'brand'								=>	$_POST['product-brand'],
+			'price' 							=>	$_POST['product-price'],
+			'description'					=>	$_POST['product-description'],
 			'wisher_id'						=>	$this->session->userdata('userid'),
 			'date'								=>	date('Y-m-d'),
-			'original_wisher_id'	=> 	$this->session->userdata('userid'),
-			'image_path'					=> 	$_POST['product-image'],
+			'original_wisher_id'	=>	$this->session->userdata('userid'),
+			'image_path'					=>	$_POST['product-image'],
 		);
 
 		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
@@ -101,9 +104,10 @@ class WishlistEditor extends CI_Controller {
 		$wishId = $_POST['wish-id'];
 
 		$wishInfo = array(
-			'name'		=> 	$_POST['product-name'],
-			'brand'		=> 	$_POST['product-brand'],
-			'price' 	=> 	$_POST['product-price'],
+			'url'			=>	$_POST['product-url'],
+			'name'		=>	$_POST['product-name'],
+			'brand'		=>	$_POST['product-brand'],
+			'price' 	=>	$_POST['product-price'],
 		);
 
 		$this->wishlist_model->updateWish($wishId, $wishInfo);

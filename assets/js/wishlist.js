@@ -1,4 +1,4 @@
-$(document).ready(function(){      
+$(document).ready(function(){
 	$('#overlay').hide();
 
 	/* Form Modals */
@@ -41,6 +41,7 @@ $(document).ready(function(){
 						var productInfo = jQuery.parseJSON(data);
 						$('#top-image').attr('src', productInfo.image);
 						$('input[name="product-image"]').val(productInfo.image);
+						$('input[name="product-url"]').val(productInfo.productUrl);
 						$('input[name="product-name"]').val(productInfo.productName);
 
 						$('.close-modal').click(function() {
@@ -92,6 +93,7 @@ $(document).ready(function(){
 	$('.edit-wish').click(function() {
 		var wishContainer = $(this).parents('.wish-container');
 		var wishId = $(wishContainer).attr('id').replace('wish-','');
+		var productUrl = $(wishContainer).find('.product-url').attr('href');
 		var productName = $(wishContainer).find('.product-name').html();
 		var productBrand = $(wishContainer).find('.product-brand').html();
 		var productPrice = $(wishContainer).find('.product-price').html();
@@ -101,6 +103,7 @@ $(document).ready(function(){
 			if(settings.url == "/index.php/wishlistEditor/showEditWishInfo") {
 				$('#top-image').attr('src', productImage);
 				$('input[name="wish-id"]').val(wishId);
+				$('input[name="product-url"]').val(productUrl);
 				$('input[name="product-name"]').val(productName);
 				$('input[name="product-brand"]').val(productBrand);
 				$('input[name="product-price"]').val(productPrice);

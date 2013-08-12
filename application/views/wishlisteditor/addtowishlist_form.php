@@ -13,6 +13,15 @@
 			$hiddenFields = array('product-image' => '');
 			echo form_open('wishlistEditor/addToWishlist', $formAttributes, $hiddenFields);
 
+			$productUrlInput = array(
+				'name'        => 'product-url',
+				'class'       => 'text-input url-input',
+				'placeholder'	=> 'http://',
+				'maxlength'   => '250',
+			);
+
+			echo form_input($productUrlInput) . "</br>";
+
 			$productNameInput = array(
 				'name'        => 'product-name',
 				'class'       => 'text-input',
