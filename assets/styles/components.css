@@ -45,7 +45,7 @@ a:hover {
 #cover-wrapper {
 	background: #686868 url('/assets/images/wood-background.jpg');
 	box-shadow: 2px 2px 1px #888888;
-	height: 200px;
+	height: 300px;
 	margin: auto;
 	padding-top: 81px;
 	width: 100%;
@@ -145,9 +145,9 @@ a:hover {
 	background: #FFFFFF;
 	border: none;
 	border-radius: 2px;
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
+	box-shadow: 2px 2px 1px #888888;
+	-moz-box-shadow: 2px 2px 1px #888888;
+	-webkit-box-shadow: 2px 2px 1px #888888;
 	color: #383734;
 	padding: 6px;
 	margin: 0 auto 10px;
@@ -182,6 +182,7 @@ a:hover {
 .button {
 	border: none;
 	border-radius: 2px;
+	box-shadow: 2px 2px 1px #888888;
 	color: #E7DECE;
 	cursor: pointer;
 	display: inline-block;
@@ -202,6 +203,7 @@ a:hover {
 
 .blue:active {
 	background-color: #6A8385;
+	box-shadow: 1px 1px 1px #888888;
 }
 
 .grey {
@@ -214,6 +216,7 @@ a:hover {
 
 .grey:active {
 	background-color: #6C6D70;
+	box-shadow: 1px 1px 1px #888888;
 }
 
 .green {

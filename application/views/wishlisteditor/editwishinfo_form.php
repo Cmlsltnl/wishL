@@ -7,7 +7,7 @@
 	</div>
 
 	<div class="form-contents">
-		<img src="" id="top-image" style="width: 100px; margin-bottom: 10px;" />
+		<img src="" id="top-image" style="width: 100px; margin-bottom: 10px; box-shadow: 2px 2px 1px #888888;" />
 		<?php
 			$formAttributes = array('id' => 'editwishinfo-form');
 			$hiddenFields = array('wish-id' => '', 'product-image' => '');
