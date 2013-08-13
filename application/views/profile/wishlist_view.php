@@ -9,7 +9,7 @@
 		<div id="cover-wrapper">
 			<div class="wrapper">
 				<div id="modal" style="z-index: 1001;"></div>
-				<div id="overlay"></div>
+				<div id="overlay" class="close-modal"></div>
 				<div id="user-info" class="pull-left">
 					<?php if ($this->userNotFound) { ?>
 						<div class="error-msg">User not found.</div>
@@ -64,7 +64,13 @@
 						<?php } ?>
 						<img class="wish-image" src="<?php echo $wish->image_path ?>"/>
 						<div class="wish-info">
-							<a href=""><div class="product-name"><?php echo $wish->name ?></div></a>
+							<?php if ($wish->url) { ?>
+								<a class="product-url" href="<?php echo $wish->url ?>" target="_blank">
+									<div class="product-name"><?php echo $wish->name ?></div>
+								</a>
+							<?php } else { ?>
+								<div class="product-name"><?php echo $wish->name ?></div>
+							<?php } ?>
 							<div class="product-brand"><?php echo $wish->brand ?></div>
 
 							<div class="product-stats">
@@ -79,7 +85,11 @@
 								<h1>
 									<div class="social-button pull-left" style="margin-right: 4px;">[rewish]</div>
 									<div class="social-button pull-left">[like]</div>
-									<div class="social-button pull-right">view &#187;</div>
+									<?php if ($wish->url) { ?>
+										<a class="product-url" href="<?php echo $wish->url ?>" target="_blank">
+											<div class="social-button pull-right">view &#187;</div>
+										</a>
+									<?php } ?>
 								</h1>
 							</div>
 						</div>

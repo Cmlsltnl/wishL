@@ -7,11 +7,20 @@
 	</div>
 
 	<div class="form-contents">
-		<img src="" id="top-image" style="width: 468px; margin-bottom: 10px;" />
+		<img src="" id="top-image" style="width: 468px; margin-bottom: 10px; box-shadow: 2px 2px 1px #888888;" />
 		<?php
 			$formAttributes = array('id' => 'addtowishlist-form');
 			$hiddenFields = array('product-image' => '');
 			echo form_open('wishlistEditor/addToWishlist', $formAttributes, $hiddenFields);
+
+			$productUrlInput = array(
+				'name'        => 'product-url',
+				'class'       => 'text-input url-input',
+				'placeholder'	=> 'http://',
+				'maxlength'   => '250',
+			);
+
+			echo form_input($productUrlInput) . "</br>";
 
 			$productNameInput = array(
 				'name'        => 'product-name',
