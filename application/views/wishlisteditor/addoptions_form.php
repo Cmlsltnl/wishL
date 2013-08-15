@@ -15,8 +15,7 @@
 			);
 
 			$addDropdown = 'id="add-dropdown" class="dropdown-input"';
-			echo form_dropdown('adddropdown', $options, 'addbyurl', $addDropdown);
-			echo "</br>";
+			echo form_dropdown('adddropdown', $options, 'addbyurl', $addDropdown) . "</br>";
 
 
 			/* Add by URL form */

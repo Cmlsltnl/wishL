@@ -16,7 +16,7 @@
 				</div>
 				<div id="navbar-links">
 					<?php if ($this->session->userdata('isLoggedIn')) { ?>
-						<button id="addtowishlist-button" class="button blue" style="width: 72px;">+</button>
+						<button class="addtowishlist-button button blue" style="width: 72px;">+</button>
 						<div id="navbar-break"></div>
 						<div id="navbar-dropdown-wrapper">
 							<div id="navbar-dropdown">

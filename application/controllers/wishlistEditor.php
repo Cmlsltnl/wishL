@@ -9,6 +9,43 @@ class WishlistEditor extends CI_Controller {
 		$this->load->model('wishlist_model');
 	}
 
+	public function showAddWishlist() {
+		$this->load->helper('form');
+		$this->load->view('wishlisteditor/addwishlist_form');
+	}
+
+	public function addWishlist() {
+		$wishlistInfo = array(
+			'owner_id' => $this->session->userdata('userid'),
+			'name' => $_POST['wishlist-name'],
+			'is_private' => isset($_POST['wishlist-isprivate']) && $_POST['wishlist-isprivate']  ? "1" : "0",
+		);
+
+		$wishlistId = $this->wishlist_model->addWishlist($wishlistInfo);
+		redirect('/profile/view/' . $this->session->userdata('userid') . '/' . $wishlistId);
+	}
+
+	public function showEditWishlist() {
+		$this->load->helper('form');
+		$this->load->view('wishlisteditor/editwishlist_form');
+	}
+
+	public function editWishlist() {
+		$wishlistId = $_POST['wishlist-id'];
+
+		$wishlistInfo = array(
+			'name' => $_POST['wishlist-name'],
+		);
+
+		$this->wishlist_model->updateWishlist($wishlistId, $wishlistInfo);
+
+		echo json_encode($wishlistInfo);
+	}
+
+	public function deleteWishlist() {
+
+	}
+
 	public function showAddOptions() {
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/addoptions_form');
@@ -66,6 +103,9 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function showAddToWishlist() {
+		$this->primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
+		$this->wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
+
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/addtowishlist_form.php');
 	}
@@ -83,10 +123,10 @@ class WishlistEditor extends CI_Controller {
 			'image_path'					=>	$_POST['product-image'],
 		);
 
-		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
-		$this->wishlist_model->addWish($wishInfo, $primaryWishlistId);
+		$wishlistId = $_POST['wishlists-dropdown'];
+		$this->wishlist_model->addWish($wishInfo, $wishlistId);
 
-		redirect('/profile/view/' . $this->session->userdata('userid'));
+		redirect('/profile/view/' . $this->session->userdata('userid') . '/' . $wishlistId);
 	}
 
 	public function deleteUpload($filename) {
@@ -94,10 +134,11 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function showEditWishInfo() {
+		$this->primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
+		$this->wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
+
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/editwishinfo_form.php');
-
-		echo "Hi";
 	}
 
 	public function editWishInfo() {
@@ -111,6 +152,13 @@ class WishlistEditor extends CI_Controller {
 		);
 
 		$this->wishlist_model->updateWish($wishId, $wishInfo);
+
+		// Check if the user changed the wishlist of the wish
+		if($_POST['wishlists-dropdown'] != $_POST['displayed-wishlist-id']) {
+			$wishlistInfo = array('wishlist_id' => $_POST['wishlists-dropdown']);
+			$this->wishlist_model->moveWish($wishId, $wishlistInfo);
+			$wishInfo['newUrl'] = site_url('profile/view/' . $this->session->userdata('userid') . '/' . $_POST['wishlists-dropdown']);
+		}
 
 		$wishInfo['wishName'] = $_POST['product-name'];
 		$wishInfo['wishId'] = $wishId;

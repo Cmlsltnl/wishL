@@ -9,7 +9,7 @@ class Profile extends CI_Controller {
 		$this->load->model('wishlist_model');
 	}
 
-	public function view($userid) {
+	public function view($userid, $wishlistId = 0) {
 		$this->userInfo = $this->user_model->getUserInfo($userid);
 		
 		if(!$this->userInfo) {
@@ -21,8 +21,13 @@ class Profile extends CI_Controller {
 
 		$this->wishlists = $this->wishlist_model->getWishlists($userid);
 
-		$primaryWishlistId = $this->wishlist_model->get_primary_wishlist($userid);
-		$wishIds = $this->wishlist_model->get_wishes($primaryWishlistId);
+		if($wishlistId != 0) {
+			$this->displayedWishlistId = $wishlistId;
+		} else {
+			$this->displayedWishlistId = $this->wishlist_model->get_primary_wishlist($userid);
+		}
+
+		$wishIds = $this->wishlist_model->get_wishes($this->displayedWishlistId);
 
 		$this->wishes = array();
 		foreach ($wishIds as $wishId) {

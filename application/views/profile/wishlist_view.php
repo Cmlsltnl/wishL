@@ -10,11 +10,11 @@
 			<div class="wrapper">
 				<div id="modal" style="z-index: 1001;"></div>
 				<div id="overlay" class="close-modal"></div>
-				<div id="user-info" class="pull-left">
+				<div id="user-info" class="cover-window pull-left" style="width: 288px;">
 					<?php if ($this->userNotFound) { ?>
 						<div class="error-msg">User not found.</div>
 					<?php } else { ?>
-						<img id="user-img" src="<?php if ($this->userInfo->image_path) { echo $this->userInfo->image_path; }
+						<img id="user-img" class="pull-left" src="<?php if ($this->userInfo->image_path) { echo $this->userInfo->image_path; }
 														else { echo "/assets/images/users/profile-default.png"; } ?>"/>
 						<div id="user-name">
 							<?php echo $this->userInfo->fullname; ?>
@@ -31,26 +31,50 @@
 						</span>
 					<?php } ?>
 				</div> <!-- end of profile-info -->
-				<div id="user-stats" class="pull-right">
-					<div id="user-name">&#9733; <?php echo $this->wishlists[0]; ?></div>
-				</div>
-			</div>
-		</div>
-
-		<!--<div id="list-bar-wrapper">
-			<div id="list-bar" class="pull-left" style="margin-right: 10px">
-				<select>
-					<?php foreach ($this->wishlists as $wishlist) { ?>
-						<option><?php echo $wishlist; ?></option>
+				<div id="profile-nav" class="cover-window pull-right" style="width: 500px;">
+					<button class="button blue pull-left">Wishlists</button>
+					<button class="button grey pull-left">Stats</button>
+					<button class="button grey pull-right">Following</button>
+					<button class="button grey pull-right">Followers</button>
+					<div class="clear" style="margin-bottom: 10px;"></div>
+					<div id="list-container">
+						<table>
+							<?php foreach ($this->wishlists as $wishlist) { 
+								if ($wishlist->wishlist_id != $this->displayedWishlistId) { ?>
+									<tr><td id="wishlist-td-<?php echo $wishlist->wishlist_id ?>">
+										&#9733; <?php echo $wishlist->name; ?>
+										<a href="<?php echo site_url('profile/view/' . $this->userInfo->user_id . '/' . $wishlist->wishlist_id) ?>">
+											<div class="view-wishlist social-button pull-right">view &#187;</div>
+										</a>
+									</td></tr>
+								<?php } else { ?>
+									<tr>
+										<td class="selected" id="wishlist-td-<?php echo $wishlist->wishlist_id ?>">
+											<div id="user-name">&#9733; <div class="wishlist-name" style="display: inline;"><?php echo $wishlist->name; ?></div>
+											<?php if($this->userInfo->user_id != $this->session->userdata('userid')) { ?>
+												<button class="button blue pull-right" style="margin: 0;">Follow this list</button></div>
+											<?php } else { ?>
+												<button id="editwishlist-button" class="button blue pull-right" style="margin: 0;">Edit Wishlist</button></div>
+											<?php } ?>
+											<div class="small" style="margin-bottom: 10px;">Last modified on June 8, 2013</div>
+											<div><?php echo $wishlist->wish_count; ?> Wishes &#183; 0 Owns &#183; 0 Followers</div>
+										</td>
+									</tr>
+							<?php }
+							} ?>
+						</table>
+					</div> <!-- end of list-container -->
+					<?php if($this->userInfo->user_id == $this->session->userdata('userid')) { ?>
+						<button id="addwishlist-button" class="button blue pull-right">Add Wishlist</button>
 					<?php } ?>
-				</select>
-			</div>
-			<button class="button blue pull-left">Follow this list</button>
-		</div>-->
+				</div> <!-- end of profile-nav -->
+			</div> <!-- end of wrapper -->
+		</div> <!-- end of cover-wrapper -->
 
-		<div class="wrapper">
-			<div id="wishlist-wrapper" class = "js-masonry" data-masonry-options='{ "columnWidth": 310, "itemSelector": ".wish-container" }'>
+		<div class="wrapper" style="margin-top: 30px;">
+			<div id="wishlist-<?php echo $this->displayedWishlistId ?>" class = "wishlist-container js-masonry" data-masonry-options='{ "columnWidth": 310, "itemSelector": ".wish-container" }'>
 				<?php
+					if(!empty($this->wishes)) {
 					foreach ($this->wishes as $wish) {
 				?>
 					<div id="wish-<?php echo $wish->wish_id ?>" class="wish-container">
@@ -95,8 +119,12 @@
 						</div>
 					</div>
 				<?php
-					}
-				?>
+					} 
+				} else { ?>
+					<div style="font-size: 20px; margin-top: 80px; text-align: center;">There are no wishes in this wishlist yet!
+						<div class="addtowishlist-button" style="color: #81A1A3; cursor: pointer; text-decoration: underline;">[Add wish]</div>
+					</div>
+				<?php } ?>
 			</div> <!-- end of wishlist-wrapper -->
 		</div> <!-- end of wrapper -->
 
