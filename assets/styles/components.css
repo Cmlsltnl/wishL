@@ -6,7 +6,8 @@
 }
 
 *:focus {
-	outline: #81A1A3 solid 1px;
+	outline-width: 3px;
+	outline-color: #81A1A3;
 }
 
 html {
@@ -40,15 +41,6 @@ a:hover {
 	margin: 0 auto;
 	padding-top: 58px;
 	width: 500px;
-}
-
-#cover-wrapper {
-	background: #686868 url('/assets/images/wood-background.jpg');
-	box-shadow: 2px 2px 1px #888888;
-	height: 300px;
-	margin: auto;
-	padding-top: 81px;
-	width: 100%;
 }
 
 /* Modals */
@@ -160,21 +152,26 @@ a:hover {
 }
 
 .dropdown-input {
-	background: #FFFFFF;
+	background: #FFFFFF url('/assets/images/glass.gif') no-repeat right;
 	border: 1px solid #C9C9C9;
+	box-shadow: 2px 2px 1px #888888;
 	border-radius: 2px;
 	height: 32px;
+	overflow: hidden;
 	margin: 0 auto 10px;
-	padding: 4px;
 	width: 98%;
 }
 
 .dropdown-input select {
 	background: transparent;
+	border: none;
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 	color: #383734;
+	padding: 6px;
+	-webkit-appearance: none;
+	width: 100%;
 }
 
 /* Buttons */
@@ -182,7 +179,7 @@ a:hover {
 .button {
 	border: none;
 	border-radius: 2px;
-	box-shadow: 2px 2px 1px #888888;
+	box-shadow: 2px 2px 1px #666666;
 	color: #E7DECE;
 	cursor: pointer;
 	display: inline-block;
@@ -251,4 +248,23 @@ a:hover {
 
 .pull-left {
 	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	border-radius: 2px;
+}
+ 
+::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }

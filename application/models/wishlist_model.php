@@ -8,29 +8,42 @@ class Wishlist_model extends CI_Model {
 		parent::__construct();
 	}
 
-	function get_primary_wishlist($userid) {
-		$sql = "SELECT wishlist_id FROM wishlist WHERE owner_id = ?";
-		$query = $this->db->query($sql, array($userid));
-		$result = $query->result();
+	function addWishlist($wishlistInfo) {
+		$this->db->insert('wishlist', $wishlistInfo);
+		return $this->db->insert_id();
+	}
 
-		if (is_array($result) && count($result) == 1) {
-			return $result[0]->wishlist_id;
+	function updateWishlist($wishlistId, $wishlistInfo) {
+		$this->db->where('wishlist_id', $wishlistId);
+		$this->db->update('wishlist', $wishlistInfo);
+	}
+
+	function deleteWishlist($wishlistId) {
+		$wishIds = $this->get_wishes($wishlistId);
+		foreach($wishIds as $wishId) {
+			$this->deleteWish($wishId);
 		}
 
-		return false;
+		$this->db->delete('wishlist', array('wishlist_id' => $wishlistId));
 	}
 
 	function getWishlists($userid) {
-		$sql = "SELECT name FROM wishlist WHERE owner_id = ?";
+		$sql = "SELECT * FROM wishlist WHERE owner_id = ?";
 		$query = $this->db->query($sql, array($userid));
 		$results = $query->result();
 
 		$wishlists = array();
 		if (is_array($results) && count($results) > 0) {
 			foreach($results as $row) {
-				array_push($wishlists, $row->name);
+				array_push($wishlists, $row);
 			}
 		}
+
+		foreach($wishlists as $wishlist) {
+			$sql = "SELECT * FROM wishlist_wish WHERE wishlist_id = ?";
+			$query = $this->db->query($sql, array($wishlist->wishlist_id));
+			$wishlist->wish_count = count($query->result());
+		}	
 
 		return $wishlists;
 	}
@@ -76,6 +89,11 @@ class Wishlist_model extends CI_Model {
 	function updateWish($wishId, $wishInfo) {
 		$this->db->where('wish_id', $wishId);
 		$this->db->update('wish', $wishInfo);
+	}
+
+	function moveWish($wishId, $wishlistInfo) {
+		$this->db->where('wish_id', $wishId);
+		$this->db->update('wishlist_wish', $wishlistInfo);
 	}
 
 	function deleteWish($wishId) {

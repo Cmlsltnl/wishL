@@ -4,6 +4,7 @@ class Settings extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('wishlist_model');
 	}
 
 	public function showSignup($message = '') {
@@ -66,9 +67,10 @@ class Settings extends CI_Controller {
 	        redirect('/login/');
 	    }
 
-	    $this->userInfo = $this->user_model->getUserInfo($this->session->userdata('userid'));
+	  $this->userInfo = $this->user_model->getUserInfo($this->session->userdata('userid'));
+	  $this->wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
 
-	    $this->load->helper('form');
+	  $this->load->helper('form');
 		$this->load->view('settings/updateinfo_form');
 	}
 
@@ -90,11 +92,12 @@ class Settings extends CI_Controller {
 		}
 
 		$updatedInfo = array(
-			'firstname'		=> 	$_POST['firstname'],
-			'lastname'		=> 	$_POST['lastname'],
-			'location' 		=> 	$_POST['location'],
-			'description'	=> 	$_POST['description'],
-			'image_path'	=>	$newImagePath
+			'firstname'						=> 	$_POST['firstname'],
+			'lastname'						=> 	$_POST['lastname'],
+			'location' 						=> 	$_POST['location'],
+			'description'					=> 	$_POST['description'],
+			'image_path'					=>	$newImagePath,
+			'primary_wishlist_id'	=>	$_POST['wishlists-dropdown'],
 		);
 
 		if($this->user_model->setUserInfo($updatedInfo)) {

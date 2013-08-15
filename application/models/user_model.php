@@ -66,6 +66,17 @@ class User_model extends CI_Model {
 
 		$this->session->set_userdata('fullname', $updatedInfo['firstname'] . ' ' . $updatedInfo['lastname']);
 
-	    return $ifUpdated;
+	  return $ifUpdated;
+	}
+
+	function getPrimaryWishlist($userid) {
+		$this->db->select('primary_wishlist_id');
+		$query = $this->db->get_where('user', array('user_id' => $userid));
+		$result = $query->result();
+
+		if (count($result) == 1) {
+			$row = $result[0];
+			return $row->primary_wishlist_id;
+		} 
 	}
 }

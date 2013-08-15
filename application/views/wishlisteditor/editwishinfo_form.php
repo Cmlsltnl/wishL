@@ -7,11 +7,21 @@
 	</div>
 
 	<div class="form-contents">
-		<img src="" id="top-image" style="width: 100px; margin-bottom: 10px; box-shadow: 2px 2px 1px #888888;" />
 		<?php
 			$formAttributes = array('id' => 'editwishinfo-form');
-			$hiddenFields = array('wish-id' => '', 'product-image' => '');
+			$hiddenFields = array('wish-id' => '', 'displayed-wishlist-id' => '', 'product-image' => '');
 			echo form_open('wishlistEditor/editWishInfo', $formAttributes, $hiddenFields);
+
+			$options = array();
+			foreach ($this->wishlists as $wishlist) {
+				$options[strval($wishlist->wishlist_id)] = $wishlist->name;
+			}
+
+			$wishlistDropdown = 'id="wishlists-dropdown" class="dropdown-input"';
+			echo form_label('Wishlist', 'wishlists-dropdown', array('class' => 'form-label'));
+			echo form_dropdown('wishlists-dropdown', $options, strval($this->primaryWishlistId), $wishlistDropdown) . "</br>";
+
+			echo '<img src="" id="top-image" style="width: 100px; margin-bottom: 10px; box-shadow: 2px 2px 1px #888888;" />';
 
 			$productUrlInput = array(
 				'name'        => 'product-url',
