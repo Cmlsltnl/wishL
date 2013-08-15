@@ -60,7 +60,16 @@
 			);
 
 			echo form_label('Profile picture', 'image', array('class' => 'form-label'));
-			echo form_upload($imageInput) . "</br></br>";
+			echo form_upload($imageInput) . "</br>";
+
+			$options = array();
+			foreach ($this->wishlists as $wishlist) {
+				$options[strval($wishlist->wishlist_id)] = $wishlist->name;
+			}
+
+			$wishlistDropdown = 'id="wishlists-dropdown" class="dropdown-input"';
+			echo form_label('Primary Wishlist', 'wishlists-dropdown', array('class' => 'form-label'));
+			echo form_dropdown('wishlists-dropdown', $options, strval($this->userInfo->primary_wishlist_id), $wishlistDropdown) . "</br></br>";
 
 			$cancelUpdateButton = array(
 				'name' => 'cancel',

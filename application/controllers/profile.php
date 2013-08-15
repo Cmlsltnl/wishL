@@ -24,7 +24,7 @@ class Profile extends CI_Controller {
 		if($wishlistId != 0) {
 			$this->displayedWishlistId = $wishlistId;
 		} else {
-			$this->displayedWishlistId = $this->wishlist_model->get_primary_wishlist($userid);
+			$this->displayedWishlistId = $this->user_model->getPrimaryWishlist($userid);
 		}
 
 		$wishIds = $this->wishlist_model->get_wishes($this->displayedWishlistId);

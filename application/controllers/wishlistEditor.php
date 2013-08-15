@@ -26,6 +26,8 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function showEditWishlist() {
+		$this->primaryWishlistId = $this->user_model->getPrimaryWishlist($this->session->userdata('userid'));
+		
 		$this->load->helper('form');
 		$this->load->view('wishlisteditor/editwishlist_form');
 	}
@@ -43,7 +45,11 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function deleteWishlist() {
+		$wishlistId = $_POST['wishlist-id'];
+		$this->wishlist_model->deleteWishlist($wishlistId);
 
+		$primaryWishlistId = $this->user_model->getPrimaryWishlist($this->session->userdata('userid'));
+		echo site_url('/profile/view/' . $this->session->userdata('userid') . '/' . $primaryWishlistId);
 	}
 
 	public function showAddOptions() {
@@ -103,7 +109,7 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function showAddToWishlist() {
-		$this->primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
+		$this->primaryWishlistId = $this->user_model->getPrimaryWishlist($this->session->userdata('userid'));
 		$this->wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
 
 		$this->load->helper('form');
@@ -134,7 +140,7 @@ class WishlistEditor extends CI_Controller {
 	}
 
 	public function showEditWishInfo() {
-		$this->primaryWishlistId = $this->wishlist_model->get_primary_wishlist($this->session->userdata('userid'));
+		$this->primaryWishlistId = $this->user_model->getPrimaryWishlist($this->session->userdata('userid'));
 		$this->wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
 
 		$this->load->helper('form');

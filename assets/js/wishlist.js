@@ -52,6 +52,27 @@ $(document).ready(function(){
 					$(document).unbind('ajaxComplete');
 				});
 
+				$('.delete-wishlist').click(function() {
+					var primaryWishlistId = $('input[name="primary-wishlist-id"]').val();
+					if(wishlistId != primaryWishlistId) {
+						var answer = confirm("Are you sure you want to delete \"" + wishlistName + "\"? This cannot be undone.");
+						if (answer == true) {
+							$('#modal').dialog('close');
+							$('#modal').html('');
+							$('#overlay').hide();
+							var url = "/index.php/wishlistEditor/deleteWishlist";
+							$.post(url, { 'wishlist-id': wishlistId }, function (data) {
+								if (data) {
+									window.location.href = data;
+								} 
+							});
+						}
+					} else {
+						alert("You can't delete your primary wishlist!\n\n To change your primary wishlist, update your info.\n");
+					}
+					$(document).unbind('ajaxComplete');
+				});
+
 				$('.close-modal').click(function() {
 					$('#modal').dialog('close');
 					$('#modal').html('');

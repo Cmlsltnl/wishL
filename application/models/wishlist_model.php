@@ -18,16 +18,13 @@ class Wishlist_model extends CI_Model {
 		$this->db->update('wishlist', $wishlistInfo);
 	}
 
-	function get_primary_wishlist($userid) {
-		$sql = "SELECT wishlist_id FROM wishlist WHERE owner_id = ? LIMIT 1";
-		$query = $this->db->query($sql, array($userid));
-		$result = $query->result();
-
-		if (is_array($result) && count($result) == 1) {
-			return $result[0]->wishlist_id;
+	function deleteWishlist($wishlistId) {
+		$wishIds = $this->get_wishes($wishlistId);
+		foreach($wishIds as $wishId) {
+			$this->deleteWish($wishId);
 		}
 
-		return false;
+		$this->db->delete('wishlist', array('wishlist_id' => $wishlistId));
 	}
 
 	function getWishlists($userid) {

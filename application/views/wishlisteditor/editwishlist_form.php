@@ -9,7 +9,7 @@
 	<div class="form-contents">
 		<?php
 			$formAttributes = array('id' => 'editwishlist-form');
-			$hiddenFields = array('wishlist-id' => '');
+			$hiddenFields = array('wishlist-id' => '', 'primary-wishlist-id' => $this->primaryWishlistId);
 			echo form_open('wishlistEditor/editWishlist', $formAttributes, $hiddenFields);
 
 			$wishlistNameInput = array(
@@ -26,7 +26,7 @@
 
 			$deleteButton = array(
 				'name' => 'delete',
-				'class' => 'delete-wish button grey pull-left',
+				'class' => 'delete-wishlist button grey pull-left',
 				'content' => 'Delete Wishlist',
 			);
 
