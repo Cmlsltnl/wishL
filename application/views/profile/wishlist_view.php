@@ -24,21 +24,26 @@
 						<span style="position: absolute; right: 20px; bottom: 20px;">
 						<?php if($this->userInfo->user_id != $this->session->userdata('userid')) { ?>
 							<button class="button grey">Send Message</button>
-							<button class="button blue">Follow</button>
+							<button id="followuser-button" class="button blue <?php if ($this->isFollowing) { echo 'active'; } ?>" follower-post-id="<?php echo $this->session->userdata('userid') ?>" followee-post-id="<?php echo $this->userInfo->user_id ?>">
+								<?php if ($this->isFollowing) { echo 'Following'; } else { echo '+ Follow'; } ?>
+							</button>
 						<?php } else { ?>
 							<button id="updateinfo-button" class="button blue">Update Info</button>
 						<?php } ?>
 						</span>
 					<?php } ?>
 				</div> <!-- end of profile-info -->
+
 				<div id="profile-nav" class="cover-window pull-right" style="width: 500px;">
-					<button class="button blue pull-left">Wishlists</button>
+					<button id="showwishlists-button" class="button blue pull-left active">Wishlists</button>
 					<button class="button grey pull-left">Stats</button>
-					<button class="button grey pull-right">Following</button>
-					<button class="button grey pull-right">Followers</button>
+					<button id="showfollowees-button" class="button grey pull-right"><?php echo count($this->followees) ?> Following</button>
+					<button id="showfollowers-button" class="button grey pull-right"><?php $numFollowers = count($this->followers); if($numFollowers != 1) { echo $numFollowers . " Followers"; } else { echo $numFollowers . " Follower"; } ?></button>
 					<div class="clear" style="margin-bottom: 10px;"></div>
 					<div id="list-container">
-						<table>
+						<!-- wishlist-table -->
+						<table id="wishlist-table">
+							<th>Wishlists</th>
 							<?php foreach ($this->wishlists as $wishlist) { 
 								if ($wishlist->wishlist_id != $this->displayedWishlistId) { ?>
 									<tr><td id="wishlist-td-<?php echo $wishlist->wishlist_id ?>">
@@ -50,19 +55,56 @@
 								<?php } else { ?>
 									<tr>
 										<td class="selected" id="wishlist-td-<?php echo $wishlist->wishlist_id ?>">
-											<div id="user-name">&#9733; <div class="wishlist-name" style="display: inline;"><?php echo $wishlist->name; ?></div>
+											&#9733; <div class="wishlist-name" style="display: inline;"><?php echo $wishlist->name; ?>
 											<?php if($this->userInfo->user_id != $this->session->userdata('userid')) { ?>
 												<button class="button blue pull-right" style="margin: 0;">Follow this list</button></div>
 											<?php } else { ?>
 												<button id="editwishlist-button" class="button blue pull-right" style="margin: 0;">Edit Wishlist</button></div>
 											<?php } ?>
 											<div class="small" style="margin-bottom: 10px;">Last modified on June 8, 2013</div>
-											<div><?php echo $wishlist->wish_count; ?> Wishes &#183; 0 Owns &#183; 0 Followers</div>
+											<div class="small"><?php echo $wishlist->wish_count; ?> Wishes &#183; 0 Owns &#183; 0 Followers</div>
 										</td>
 									</tr>
 							<?php }
 							} ?>
 						</table>
+
+						<!-- follower-table -->
+						<table id="follower-table" style="display: none;">
+							<th>Followers</th>
+							<?php foreach ($this->followers as $follower) { ?>
+								<tr>
+									<td class="selected" id="follower-<?php echo $follower->user_id ?>">
+										<a href="<?php echo site_url('profile/view/' . $follower->user_id) ?>">
+											<div class="view-wishlist social-button pull-right">view &#187;</div>
+										</a>
+										<img class="pull-left" style="margin-right: 10px;" src="<?php if ($follower->image_path) { echo $follower->image_path; }
+														else { echo "/assets/images/users/profile-default.png"; } ?>" width="40"/>
+										<div class="user-name"><?php echo $follower->firstname . " " . $follower->lastname ?></div>
+										<div class="small"><?php echo $follower->location ?></div>
+									</td>
+								</tr>
+							<?php } ?>
+						</table>
+
+						<!-- follower-table -->
+						<table id="followee-table" style="display: none;">
+							<th>Following</th>
+							<?php foreach ($this->followees as $followee) { ?>
+								<tr>
+									<td class="selected" id="followee-<?php echo $followee->user_id ?>">
+										<a href="<?php echo site_url('profile/view/' . $followee->user_id) ?>">
+											<div class="view-wishlist social-button pull-right">view &#187;</div>
+										</a>
+										<img class="pull-left" style="margin-right: 10px;" src="<?php if ($followee->image_path) { echo $followee->image_path; }
+														else { echo "/assets/images/users/profile-default.png"; } ?>" width="40"/>
+										<div class="user-name"><?php echo $followee->firstname . " " . $followee->lastname ?></div>
+										<div class="small"><?php echo $followee->location ?></div>
+									</td>
+								</tr>
+							<?php } ?>
+						</table>
+
 					</div> <!-- end of list-container -->
 					<?php if($this->userInfo->user_id == $this->session->userdata('userid')) { ?>
 						<button id="addwishlist-button" class="button blue pull-right">Add Wishlist</button>

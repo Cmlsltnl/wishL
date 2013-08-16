@@ -1,6 +1,45 @@
 $(document).ready(function(){
 	$('#overlay').hide();
 
+	/* Masonry */
+	$('.js-masonry').imagesLoaded( function() {
+		$('.js-masonry').masonry({
+			containerStyle: null,
+			columnWidth: 291,
+			gutter: 12,
+			itemSelector: '.wish-container',
+			transitionDuration: 0,
+		});
+	});
+
+	/* Profile Nav */
+	$('#showfollowers-button').click(function() {
+		$('#wishlist-table').hide();
+		$('#followee-table').hide();
+		$('#follower-table').show();
+		$('#showwishlists-button').removeClass('active');
+		$('#showfollowees-button').removeClass('active');
+		$(this).addClass('active');
+	});
+
+	$('#showfollowees-button').click(function() {
+		$('#wishlist-table').hide();
+		$('#follower-table').hide();
+		$('#followee-table').show();
+		$('#showwishlists-button').removeClass('active');
+		$('#showfollowers-button').removeClass('active');
+		$(this).addClass('active');
+	});
+
+	$('#showwishlists-button').click(function() {
+		$('#followee-table').hide();
+		$('#follower-table').hide();
+		$('#wishlist-table').show();
+		$('#showfollowees-button').removeClass('active');
+		$('#showfollowers-button').removeClass('active');
+		$(this).addClass('active');
+	});
+
 	/* Form Modals */
 	$('#updateinfo-button').click(function() {
 		$('#modal').load("/index.php/settings/showUpdateInfo").dialog('open');
@@ -241,14 +280,43 @@ $(document).ready(function(){
 		$(this).children('.wish-info').css('background-color', '#E7DECE');
 	});
 
-	/* Masonry */
-	$('.js-masonry').imagesLoaded( function() {
-		$('.js-masonry').masonry({
-			containerStyle: null,
-			columnWidth: 291,
-			gutter: 12,
-			itemSelector: '.wish-container',
-			transitionDuration: 0,
-		});
+	/* Follow Users */
+	$('#followuser-button').click(function() {
+		var followerId = $(this).attr('follower-post-id');
+		var followeeId = $(this).attr('followee-post-id');
+		var numFollowers = $('#showfollowers-button').text().replace(' Followers', '');
+		if ($(this).hasClass('active') != true) {
+			var url = "/index.php/follow/followUser";
+			$.post(url, { 'follower-id': followerId, 'followee-id': followeeId}, function (data) {
+				if (data) {
+					$('#followuser-button').addClass('active');
+					$('#followuser-button').text('Following');
+					numFollowers++;
+					if(numFollowers != 1 && !isNaN(numFollowers)) {
+						$('#showfollowers-button').text(numFollowers + ' Followers');
+					} else if (numFollowers == 1) {
+						$('#showfollowers-button').text('1 Follower');
+					} else {
+						$('#showfollowers-button').text('0 Followers');
+					}
+				} 
+			});
+		} else {
+			var url = "/index.php/follow/unfollowUser";
+			$.post(url, { 'follower-id': followerId, 'followee-id': followeeId}, function (data) {
+				if (data) {
+					$('#followuser-button').removeClass('active');
+					$('#followuser-button').text('+ Follow');
+					numFollowers--;
+					if(numFollowers != 1 && !isNaN(numFollowers)) {
+						$('#showfollowers-button').text(numFollowers + ' Followers');
+					} else if (numFollowers == 1) {
+						$('#showfollowers-button').text('1 Follower');
+					} else {
+						$('#showfollowers-button').text('0 Followers');
+					}
+				} 
+			});
+		}
 	});
 });

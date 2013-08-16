@@ -4,6 +4,7 @@ class Settings extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('follow_model');
 		$this->load->model('wishlist_model');
 	}
 
@@ -18,6 +19,7 @@ class Settings extends CI_Controller {
 	public function signupUser() {
 		$userInfo = array(
 			'email' 		=> 	$_POST['email'],
+			'username'		=> $_POST['username'],
 			'password' 		=> 	md5($_POST['password']),
 			'firstname'		=> 	$_POST['firstname'],
 			'lastname'		=> 	$_POST['lastname'],
@@ -30,7 +32,10 @@ class Settings extends CI_Controller {
 			$this->showSignup();
 		}
 
-		$this->user_model->addNewUser($userInfo);
+		$newUserId = $this->user_model->addUser($userInfo);
+		$newWishlistId = $this->wishlist_model->addWishlist(array('owner_id' => $newUserId, 'name' => $_POST['wishlist-name']));
+		$this->user_model->setUserInfo(array('primary_wishlist_id' => $newWishlistId));
+
 		if($this->user_model->validateUser($userInfo['email'], $userInfo['password'])) {
 			redirect('/profile/view/' . $this->session->userdata('userid'));
 		} else {
@@ -108,6 +113,14 @@ class Settings extends CI_Controller {
 	}
 
 	public function deleteAccount() {
+		$wishlists = $this->wishlist_model->getWishlists($this->session->userdata('userid'));
+		foreach ($wishlists as $wishlist) {
+			$this->wishlist_model->deleteWishlist($wishlist->wishlist_id);
+		}
+
+		$this->follow_model->deleteFollow(array('follower_id' => $this->session->userdata('userid')));
+		$this->follow_model->deleteFollow(array('followee_id' => $this->session->userdata('userid')));
+
 		$this->user_model->deleteUser($this->session->userdata('userid'));
 		
 		$this->session->sess_destroy();

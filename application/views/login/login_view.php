@@ -8,9 +8,12 @@
 	<body>
 		<div class="wrapper" style="margin: auto; padding-top: 100px; width: 900px;">
 			<div id="hero">
-				<h1>Take control</h1>
-				<h1>of your</h1>
-				<h1>wishes<div style="font-size: 10px; display: inline; margin-left: 4px;">&#9733;</div></h1>
+				<h1>Get what you</h1>
+				<h1>really wish</h1>
+				<h1>for<div style="font-size: 10px; display: inline; margin-left: 4px;">&#9733;</div></h1>
+				<a href="<?php echo site_url("settings/showSignup") ?>">
+					<div id="signup-button">Sign Up &#187;</div>
+				</a>
 			</div>
 
 			<div id="login-form" class="form-wrapper" style="width: 300px;">
@@ -53,11 +56,6 @@
 						    'value' => 'true',
 						    'content' => 'Sign Up',
 						);
-
-						//echo "<a href='" . site_url("settings/showSignup") . "'>";
-						//echo form_button($signupButton);
-						//echo "</a>";
-						
 					
 						$loginButton = array(
 						    'name' => 'login',
