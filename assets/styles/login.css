@@ -6,10 +6,28 @@
 	float: left;
 	height: 500px;
 	padding: 20px;
+	position: relative;
 	width: 400px;
 }
 
 #hero h1 {
 	font-size: 60px;
 	font-weight: lighter;
+}
+
+#hero a {
+	color: #E7DECE;
+}
+
+#hero a:hover {
+	text-decoration: underline;
+}
+
+#signup-button {
+	bottom: 20px;
+	color: #E7DECE;
+	font-size: 18px;
+	font-weight: normal;
+	position: absolute;
+	right: 20px;
 }

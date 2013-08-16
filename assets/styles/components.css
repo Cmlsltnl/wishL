@@ -127,6 +127,21 @@ a:hover {
 	padding: 15px;
 }
 
+.form-contents h4 {
+	color: #888888;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+
+.form-break {
+	background: #C7BFB1;
+	height: 1px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
 .form-label {
 	display: inline-block;
 	font-weight: bold;
@@ -198,7 +213,8 @@ a:hover {
 	background-color: #789596;
 }
 
-.blue:active {
+.blue:active,
+.blue.active {
 	background-color: #6A8385;
 	box-shadow: 1px 1px 1px #888888;
 }
@@ -211,7 +227,8 @@ a:hover {
 	background-color: #7A7C80;
 }
 
-.grey:active {
+.grey:active,
+.grey.active {
 	background-color: #6C6D70;
 	box-shadow: 1px 1px 1px #888888;
 }
@@ -227,11 +244,14 @@ a:hover {
 
 .red {
 	background-color: #DE4E4E;
-	border: 1px solid #C92A2A;
 }
 
 .red:hover {
 	background-color: #CC4747;
+}
+
+.red:active {
+	background-color: #C92A2A;
 }
 
 /* Text size */

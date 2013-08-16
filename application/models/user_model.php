@@ -41,7 +41,8 @@ class User_model extends CI_Model {
 	}
 
 	function addUser($userInfo) {
-		return $this->db->insert('user', $userInfo);
+		$this->db->insert('user', $userInfo);
+		return $this->db->insert_id();
 	}
 
 	function deleteUser($userid) {

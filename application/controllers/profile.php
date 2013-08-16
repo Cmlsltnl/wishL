@@ -6,6 +6,7 @@ class Profile extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
 		$this->load->model('user_model');
+		$this->load->model('follow_model');
 		$this->load->model('wishlist_model');
 	}
 
@@ -14,13 +15,17 @@ class Profile extends CI_Controller {
 		
 		if(!$this->userInfo) {
 			$this->userNotFound = true;
-		} else {
-			$this->userNotFound = false;
-			$this->userInfo->fullname = $this->userInfo->firstname . " " . $this->userInfo->lastname;
+			return;
 		}
+		
+		$this->userNotFound = false;
+		$this->userInfo->fullname = $this->userInfo->firstname . " " . $this->userInfo->lastname;
+
+		$this->isFollowing = $this->follow_model->isFollowing($this->session->userdata('userid'), $userid);
+		$this->followers = $this->follow_model->getFollowers($userid);
+		$this->followees = $this->follow_model->getFollowees($userid);
 
 		$this->wishlists = $this->wishlist_model->getWishlists($userid);
-
 		if($wishlistId != 0) {
 			$this->displayedWishlistId = $wishlistId;
 		} else {
@@ -28,7 +33,6 @@ class Profile extends CI_Controller {
 		}
 
 		$wishIds = $this->wishlist_model->get_wishes($this->displayedWishlistId);
-
 		$this->wishes = array();
 		foreach ($wishIds as $wishId) {
 			array_push($this->wishes, $this->wishlist_model->get_wish_info($wishId));

@@ -10,7 +10,7 @@
 				$("#delete-account").click(function(){
 					var answer = confirm("Are you sure you want to delete your account?");
 					if (answer == true) {
-						window.location = "<?php echo site_url('/settings/delete_account'); ?>";
+						window.location = "<?php echo site_url('/settings/deleteAccount'); ?>";
 					}
 				});
 			});

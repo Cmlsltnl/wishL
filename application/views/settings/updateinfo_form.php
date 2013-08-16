@@ -8,28 +8,29 @@
 
 	<div class="form-contents">
 		<?php
-			echo form_open_multipart('settings/updateInfo');
+			echo form_open('settings/updateInfo');
 
 			$firstnameInput = array(
 			    'name'        => 'firstname',
-			    'class'       => 'text-input',
+			    'class'       => 'text-input pull-left',
 			    'value'       => $this->userInfo->firstname,
 			    'maxlength'   => '20',
 			    'size'        => '50',
+			    'style'				=> 'width: 45%; clear: left; margin-right: 11px;',
 			);
 
-			echo form_label('First Name', 'firstname', array('class' => 'form-label'));
+			echo form_label('Full Name', 'firstname', array('class' => 'form-label pull-left'));
 			echo form_input($firstnameInput) . "</br>";
 
 			$lastnameInput = array(
 			    'name'        => 'lastname',
-			    'class'       => 'text-input',
+			    'class'       => 'text-input pull-left',
 			    'value'       => $this->userInfo->lastname,
 			    'maxlength'   => '20',
 			    'size'        => '50',
+			    'style'				=> 'width: 45%',
 			);
 
-			echo form_label('Last Name', 'lastname', array('class' => 'form-label'));
 			echo form_input($lastnameInput) . "</br>";
 
 			$locationInput = array(
